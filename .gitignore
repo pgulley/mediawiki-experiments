@@ -1,2 +1,6 @@
 .ipynb_checkpoints/*
+user-password.py
 throttle.ctrl
+apicache/*
+*.lwp
+venv/*
