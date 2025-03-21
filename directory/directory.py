@@ -144,6 +144,7 @@ class Collection():
 
     def render_sources(self):
         template = jinja_env.get_template("collections/collection_sources.j2")
+        #Not sure the right way to lazy load this one, but that's an older paige's problem
         all_sources = [source for source in self.iter_sources()]
         return f"CollectionSources:{self.collection_data.id}", template.render(sources=all_sources)
 
