@@ -1,0 +1,17 @@
+(as of {{run_date}})
+{| class="wikitable"
+! Name
+! URL
+! Active
+! Created At
+! Last New Stories
+{% for feed in feeds %}
+
+|-
+| {{feed.name}}
+| {{feed.url}}
+| {{feed.active}}
+| {{feed.created_at}}
+| {{feed.last_new_stories}}
+{% endfor %}
+|}

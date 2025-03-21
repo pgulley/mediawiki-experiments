@@ -89,8 +89,14 @@ class Source():
         return f"SourceCollections:{self.source_data.id}", source_collections_template.render(collections=self.collections)
 
     def render_feeds(self):
-        pass
+        feed_template = jinja_env.get_template("source_feeds.j2")
+        datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
 
+        return f"SourceFeeds:{self.source_data.id}", feed_template.render(feeds=self.feed_list, run_date=datestr)
+
+    def changelog_message(self, message):
+        datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        return f"SourceChangelog:{self.source_data.id}", f"* {datestr}: {message}"
 
 class Collection():
 

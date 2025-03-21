@@ -32,20 +32,28 @@ def put_collection_pages(id:int) -> None:
 		put_page_text(t.render_base_page)
 		put_page_text(t.render_infobox)
 		put_page_text(t.render_collections)
+		put_page_text(t.render_feeds)
+		cl_name, cl_message = t.changelog_message("Iterating")
+		update_changelog(cl_name, cl_message)
 
-def put_page_text(render_method, append_only=False):
+def put_page_text(render_method):
 	page_title, page_text = render_method()
 	page = pywikibot.Page(site, page_title)
 	if page.exists():
 		page.text = page_text 
 		page.save(summary="Updating source page via bot")
 	else:
-		if append_only:
-			page_text += page_text
-		else:
-			page.text = page_text 
+		page.text = page_text 
 		page.save(summary = "Creating new source page via bot")
 
+def update_changelog(page_title, message):
+	page = pywikibot.Page(site, page_title)
+	if page.exists():
+		page.text += message
+		page.save(summary="Updating source page via bot")
+	else:
+		page.text = message 
+		page.save(summary = "Creating new source page via bot")
 
 
 if __name__ == "__main__":
