@@ -1,0 +1,15 @@
+{# source_page.j2 - Renders a MediaWiki infobox for Source:<id> #}
+
+{{ '{{' }}DISPLAYTITLE:{{ source.label }}{{ '}}' }}
+
+{{ '{{' }}Infobox Source
+ | name = {{ source.label }}
+ | id = {{ source.id }}
+ | country = {{ source.pub_country or 'Unknown' }}
+ | state = {{ source.pub_state or 'Unknown'}}
+ | language = {{ source.primary_language or 'Unknown' }}
+ | url = {{ source.homepage }}
+ | Directory Link = [{{link}} View {{ source.label}} in MediaCloud]
+{{ '}}' }}
+
+

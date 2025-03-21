@@ -4,3 +4,5 @@ throttle.ctrl
 apicache/*
 *.lwp
 venv/*
+__pycache__/
+*.pyc
