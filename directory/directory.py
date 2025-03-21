@@ -65,7 +65,7 @@ class Source():
         feeds = mc_client.feed_list(source_id=self.source_data.id, return_details=True)["results"]
         return [FeedPayload(f) for f in feeds]
 
-    def render_base_template(self):
+    def render_base_page(self):
         base_template = jinja_env.get_template("source_main.j2")
         return base_template.render(source=self.source_data)
 
@@ -86,7 +86,7 @@ class Source():
 
     def render_collections(self):
         source_collections_template = jinja_env.get_template("collection_list.j2")
-        return f"SourceCollections:{self.source_data.id}", source_collections_template.render(collections=collections)
+        return f"SourceCollections:{self.source_data.id}", source_collections_template.render(collections=self.collections)
 
     def render_feeds(self):
         pass

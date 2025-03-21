@@ -1,9 +1,5 @@
-import pywikibot
 from directory.directory import Collection
-
-#Get the site reference
-site = pywikibot.Site()
-site.login()
+#Just tests rendering out a set of templates for a source, to validate before streaming to the mediawiki
 
 us_national = 34412234
 coll: Collection = Collection.from_id(us_national)
