@@ -47,10 +47,7 @@ class Source():
 
         self.source_data = SourcePayload(data)
 
-        if(not skip_feeds):
-            self.feed_list = self.get_source_feeds()
-        else:
-            self.feed_list = None
+        self.feed_list = self.get_source_feeds()
 
         self.collections = self.get_source_collections()
         self.source_issues = []
@@ -68,8 +65,9 @@ class Source():
         feeds = mc_client.feed_list(source_id=self.source_data.id, return_details=True)["results"]
         return [FeedPayload(f) for f in feeds]
 
-    def wiki_name(self):
-        return f'Source:{self.source_data.id}'
+    def render_base_template(self):
+        base_template = jinja_env.get_template("source_main.j2")
+        return base_template.render(source=self.source_data)
 
     def render_infobox(self):
         
@@ -84,7 +82,14 @@ class Source():
             run_date=datestr,
             link=link)
 
-        return source_message
+        return f"SourceInfo:{self.source_data.id}", source_message
+
+    def render_collections(self):
+        source_collections_template = jinja_env.get_template("collection_list.j2")
+        return f"SourceCollections:{self.source_data.id}", source_collections_template.render(collections=collections)
+
+    def render_feeds(self):
+        pass
 
 
 class Collection():
