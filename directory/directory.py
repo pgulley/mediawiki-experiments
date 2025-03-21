@@ -131,7 +131,7 @@ class Collection():
 
     def render_infobox(self):
         
-        link = f"https://search.mediacloud.org/collections{self.collection_data.id}"
+        link = f"https://search.mediacloud.org/collections/{self.collection_data.id}"
 
         datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
 
