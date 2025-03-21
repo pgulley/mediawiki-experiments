@@ -96,7 +96,7 @@ class Source():
 
     def changelog_message(self, message):
         datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        return f"SourceChangelog:{self.source_data.id}", f"* {datestr}: {message}"
+        return f"SourceChangelog:{self.source_data.id}", f"* {datestr}: {message} \n"
 
 class Collection():
 
@@ -149,4 +149,4 @@ class Collection():
 
     def changelog_message(self, message):
         datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        return f"CollectionChangelog:{self.collection_data.id}", f"* {datestr}: {message}"
+        return f"CollectionChangelog:{self.collection_data.id}", f"* {datestr}: {message} \n"
