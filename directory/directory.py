@@ -66,7 +66,7 @@ class Source():
         return [FeedPayload(f) for f in feeds]
 
     def render_base_page(self):
-        base_template = jinja_env.get_template("source_main.j2")
+        base_template = jinja_env.get_template("sources/source_main.j2")
         return f"Source:{self.source_data.id}", base_template.render(source=self.source_data)
 
     def render_infobox(self):
@@ -75,7 +75,7 @@ class Source():
 
         datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
 
-        source_message_template = jinja_env.get_template("infobox_source.j2")
+        source_message_template = jinja_env.get_template("sources/infobox_source.j2")
 
         source_message = source_message_template.render(
             source=self.source_data, 
@@ -85,11 +85,11 @@ class Source():
         return f"SourceInfo:{self.source_data.id}", source_message
 
     def render_collections(self):
-        source_collections_template = jinja_env.get_template("collection_list.j2")
+        source_collections_template = jinja_env.get_template("sources/source_collections.j2")
         return f"SourceCollections:{self.source_data.id}", source_collections_template.render(collections=self.collections)
 
     def render_feeds(self):
-        feed_template = jinja_env.get_template("source_feeds.j2")
+        feed_template = jinja_env.get_template("sources/source_feeds.j2")
         datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
 
         return f"SourceFeeds:{self.source_data.id}", feed_template.render(feeds=self.feed_list, run_date=datestr)
@@ -124,9 +124,29 @@ class Collection():
         for source_data in self._get_source_data():
             yield Source(source_data)
 
-    #def render_source_templates(self):
-    #    for source in self.sources:
-    #        yield source.render_template()
 
-    def render_template(self):
-        return f"Collection({self.collection_data.name})"
+    def render_base_page(self):
+        template = jinja_env.get_template("collections/collection_main.j2")
+        return f"Collection:{self.collection_data.id}", template.render(collection=self.collection_data)
+
+    def render_infobox(self):
+        
+        link = f"https://search.mediacloud.org/collections{self.collection_data.id}"
+
+        datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+
+        template = jinja_env.get_template("collections/infobox_collection.j2")
+
+        return f"CollectionInfo:{self.collection_data.id}", template.render(
+            collection=self.collection_data, 
+            run_date=datestr,
+            link=link)
+
+    def render_sources(self):
+        template = jinja_env.get_template("collections/collection_sources.j2")
+        all_sources = [source for source in self.iter_sources()]
+        return f"CollectionSources:{self.collection_data.id}", template.render(sources=all_sources)
+
+    def changelog_message(self, message):
+        datestr = dt.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        return f"CollectionChangelog:{self.collection_data.id}", f"* {datestr}: {message}"
