@@ -67,7 +67,7 @@ class Source():
 
     def render_base_page(self):
         base_template = jinja_env.get_template("source_main.j2")
-        return base_template.render(source=self.source_data)
+        return f"Source:{self.source_data.id}", base_template.render(source=self.source_data)
 
     def render_infobox(self):
         

@@ -8,6 +8,18 @@ site.login()
 
 
 def put_collection_pages(id:int) -> void:
+	"""
+	This method creates (overwriting) all of the pages associated with each source in a collection:
+		- the Base Page
+		- the SourceInfobox
+		- the SourceCollections
+	and eventually
+		- the SourceFeeds
+		- the SourceChangelog
+
+	These are separated out into distinct pages so that other bot processes down the line can edit one component without needing any
+	weird and potentially destructive edits to the base page. 
+	"""	
 	coll: Collection = Collection.from_id(us_national)
 
 	for t in coll.iter_sources():
